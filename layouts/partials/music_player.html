@@ -67,8 +67,16 @@
           src="{{ $musicSrc }}">
         </iframe>
         <div class="music-actions">
-          <a class="music-open" href="{{ $musicURL }}" target="_blank" rel="noopener">Open with browser</a>
+            <a class="music-open" href="{{ $musicURL }}" target="_blank" rel="noopener">
+                Open
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+            </a>
         </div>
+
       </div>
     {{- end -}}
 
@@ -81,9 +89,6 @@
           allowfullscreen
           src="{{ $ytSrc }}">
         </iframe>
-        <div class="music-actions">
-          <a class="music-open" href="{{ $ytURL }}" target="_blank" rel="noopener">Open with browser</a>
-        </div>
       </div>
     {{- end -}}
   </div>
@@ -92,9 +97,16 @@
     .players{margin:0 0 1rem;display:grid;gap:1rem}
     .player-block{}
     .music-actions{margin:.5rem 0 1rem}
-    .music-open{display:inline-block;padding:.4rem .7rem;border:1px solid #ddd;border-radius:8px;text-decoration:none}
-    @media (prefers-color-scheme: dark){
-      .music-open{border-color:#333}
+    .music-open {
+        text-decoration: underline;
+        color: inherit;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3em;
     }
+    .music-open svg {
+        flex-shrink: 0;
+    }
+
   </style>
 {{- end -}}
