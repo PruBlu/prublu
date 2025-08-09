@@ -1,4 +1,4 @@
-{{/* usage:  {{< lyrics3 id="vituiks_man" >}}   -> data/lyrics/vituiks_man.yml */}}
+{{/* usage:  {{< lyrics id="vituiks_man" >}}  -> data/lyrics/vituiks_man.yml */}}
 {{ $id := .Get "id" | lower }}
 {{ $song := index site.Data.lyrics $id }}
 
@@ -6,23 +6,18 @@
   <p style="color:#b91c1c">Data unfound: data/lyrics/{{ $id }}.yml</p>
 {{ else }}
 
-{{ $map := dict }}
+{{ $cols := slice }}
+{{ $linesMap := dict }}
 {{ range $v := $song.language_versions }}
-  {{ $map = merge $map (dict $v.lang_code (dict "language" $v.language "lines" $v.lyrics)) }}
+  {{ $cols = $cols | append $v.lang_code }}
+  {{ $linesMap = merge $linesMap (dict $v.lang_code $v.lyrics) }}
 {{ end }}
 
-{{ $fi := index $map "slangi fi" }}
-{{ $en := index $map "fi" }}
-{{ $zh := index $map "zh" }}
-
-{{ $fiLines := cond $fi ($fi.lines) (slice) }}
-{{ $enLines := cond $en ($en.lines) (slice) }}
-{{ $zhLines := cond $zh ($zh.lines) (slice) }}
-
 {{ $max := 0 }}
-{{ if gt (len $fiLines) $max }}{{ $max = len $fiLines }}{{ end }}
-{{ if gt (len $enLines) $max }}{{ $max = len $enLines }}{{ end }}
-{{ if gt (len $zhLines) $max }}{{ $max = len $zhLines }}{{ end }}
+{{ range $code := $cols }}
+  {{ $l := index $linesMap $code | default (slice) }}
+  {{ if gt (len $l) $max }}{{ $max = len $l }}{{ end }}
+{{ end }}
 
 <div class="tri-lyrics">
   <h2 class="tri-title">{{ $song.title }}</h2>
@@ -32,17 +27,18 @@
     <table class="tri-table">
       <thead>
         <tr>
-          <th>{{ cond $fi (printf "%s (fi)" $fi.language) "FI" }}</th>
-          <th>{{ cond $en (printf "%s (en)" $en.language) "EN" }}</th>
-          <th>{{ cond $zh (printf "%s (zh)" $zh.language) "ZH" }}</th>
+          {{ range $code := $cols }}
+            <th>{{ $code }}</th>
+          {{ end }}
         </tr>
       </thead>
       <tbody>
         {{ range $i, $_ := seq $max }}
           <tr>
-            <td><span class="line">{{ with index $fiLines $i }}{{ . }}{{ end }}</span></td>
-            <td><span class="line">{{ with index $enLines $i }}{{ . }}{{ end }}</span></td>
-            <td><span class="line">{{ with index $zhLines $i }}{{ . }}{{ end }}</span></td>
+            {{ range $code := $cols }}
+              {{ $arr := index $linesMap $code | default (slice) }}
+              <td><span class="line">{{ with index $arr $i }}{{ . }}{{ end }}</span></td>
+            {{ end }}
           </tr>
         {{ end }}
       </tbody>
@@ -59,13 +55,8 @@
 .tri-table tbody td:hover{background:var(--tri-active,rgba(255,224,130,.6))}
 .tri-title{margin:.2rem 0 .3rem}
 .tri-meta{margin:0 0 .6rem;opacity:.8}
-
 @media (prefers-color-scheme: dark){
-  :root{
-    --tri-bg:#0b0b0b;
-    --tri-hover:rgba(255,255,255,.08);
-    --tri-active:rgba(255,255,255,.14);
-  }
+  :root{ --tri-bg:#0b0b0b; --tri-hover:rgba(255,255,255,.08); --tri-active:rgba(255,255,255,.14); }
 }
 </style>
 {{ end }}

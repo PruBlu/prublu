@@ -3,7 +3,7 @@ artist: Roope Salminen ja Koirat
 album: Vituiks Män
 language_versions:
   - language: original
-    lang_code: fi
+    lang_code: slangi_fi
     lyrics:
       - Onko se lintu?
       - Onko se lentokone?
@@ -72,8 +72,8 @@ language_versions:
       - Jos kaupunki on pulassa
       - Ja jonkun pitää pelastaa päivä
       - Nii älä nyt perkele mulle soita
-  - language: english
-    lang_code: en
+  - language: finnish
+    lang_code: fi
     lyrics:
       - Onko se lintu?
       - Onko se lentokone?

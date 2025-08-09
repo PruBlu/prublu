@@ -1,10 +1,9 @@
 +++
 title = "LyricsTranslate: Viktuis Män"
-layout = "lyrics"
-date = 2025-08-10
+date = 2025-08-09
 draft = false
 comments = true
 +++
-{{< lyrics id="viktuis_man" >}}
+{{< lyrics id="vituiks_man" >}}
 
 
