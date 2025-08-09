@@ -81,8 +81,8 @@ params:
 
   # home-info mode
   homeInfoParams:
-    Title: "Hi there \U0001F44B"
-    Content: Welcome to my blog
+    Title: "PruBlu's blog \U0001F44B"
+    Content: Hello world!
 
   socialIcons:
     - name: x

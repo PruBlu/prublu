@@ -1,0 +1,71 @@
+{{/* usage:  {{< lyrics3 id="vituiks_man" >}}   -> data/lyrics/vituiks_man.yml */}}
+{{ $id := .Get "id" | lower }}
+{{ $song := index site.Data.lyrics $id }}
+
+{{ if not $song }}
+  <p style="color:#b91c1c">Data unfound: data/lyrics/{{ $id }}.yml</p>
+{{ else }}
+
+{{ $map := dict }}
+{{ range $v := $song.language_versions }}
+  {{ $map = merge $map (dict $v.lang_code (dict "language" $v.language "lines" $v.lyrics)) }}
+{{ end }}
+
+{{ $fi := index $map "fi" }}
+{{ $en := index $map "en" }}
+{{ $zh := index $map "zh" }}
+
+{{ $fiLines := cond $fi ($fi.lines) (slice) }}
+{{ $enLines := cond $en ($en.lines) (slice) }}
+{{ $zhLines := cond $zh ($zh.lines) (slice) }}
+
+{{ $max := 0 }}
+{{ if gt (len $fiLines) $max }}{{ $max = len $fiLines }}{{ end }}
+{{ if gt (len $enLines) $max }}{{ $max = len $enLines }}{{ end }}
+{{ if gt (len $zhLines) $max }}{{ $max = len $zhLines }}{{ end }}
+
+<div class="tri-lyrics">
+  <h2 class="tri-title">{{ $song.title }}</h2>
+  <p class="tri-meta"><strong>{{ $song.artist }}</strong> — {{ $song.album }}</p>
+
+  <div class="tri-table-wrap">
+    <table class="tri-table">
+      <thead>
+        <tr>
+          <th>{{ cond $fi (printf "%s (fi)" $fi.language) "FI" }}</th>
+          <th>{{ cond $en (printf "%s (en)" $en.language) "EN" }}</th>
+          <th>{{ cond $zh (printf "%s (zh)" $zh.language) "ZH" }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{ range $i, $_ := seq $max }}
+          <tr>
+            <td><span class="line">{{ with index $fiLines $i }}{{ . }}{{ end }}</span></td>
+            <td><span class="line">{{ with index $enLines $i }}{{ . }}{{ end }}</span></td>
+            <td><span class="line">{{ with index $zhLines $i }}{{ . }}{{ end }}</span></td>
+          </tr>
+        {{ end }}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+.tri-table-wrap{overflow:auto;border-radius:.5rem}
+.tri-table{width:100%;border-collapse:separate;border-spacing:0}
+.tri-table th,.tri-table td{border:0;padding:.6rem .8rem;vertical-align:top;line-height:1.6}
+.tri-table thead th{font-weight:600;opacity:.85;position:sticky;top:0;background:var(--tri-bg,#fff)}
+.tri-table tbody tr:hover td{background:var(--tri-hover,rgba(255,224,130,.35))}
+.tri-table tbody td:hover{background:var(--tri-active,rgba(255,224,130,.6))}
+.tri-title{margin:.2rem 0 .3rem}
+.tri-meta{margin:0 0 .6rem;opacity:.8}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --tri-bg:#0b0b0b;
+    --tri-hover:rgba(255,255,255,.08);
+    --tri-active:rgba(255,255,255,.14);
+  }
+}
+</style>
+{{ end }}
