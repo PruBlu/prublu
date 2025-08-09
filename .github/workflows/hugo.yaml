@@ -100,8 +100,3 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-outputs:
-  home:
-    - HTML
-    - RSS
-    - JSON # necessary for search
