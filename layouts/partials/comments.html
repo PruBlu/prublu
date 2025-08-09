@@ -1,45 +1,19 @@
-{{- /* Comments area start */ -}}
-{{- /* to add comments read => https://gohugo.io/content-management/comments/ */ -}}
-{{- /* Comments area end */ -}}
-
-{{- $short := .Site.Config.Services.Disqus.Shortname -}}
-{{- if and (not hugo.IsServer) $short -}}
 <div id="disqus_thread"></div>
-
-<!-- DEBUG: 以下信息只用于排查，出问题时在控制台里能看到 -->
 <script>
-  console.log("[DISQUS DEBUG] shortname =", "{{ $short }}");
-  console.log("[DISQUS DEBUG] page.url =", "{{ .Permalink }}");
-  console.log("[DISQUS DEBUG] page.identifier =", "{{ with .File }}{{ .Path }}{{ else }}{{ .Permalink }}{{ end }}");
-
-  // 尝试提供明确的 page 配置，避免 URL/标识不稳定
-  var disqus_config = function () {
-    this.page.url = "{{ .Permalink }}";
-    this.page.identifier = "{{ with .File }}{{ .Path }}{{ else }}{{ .Permalink }}{{ end }}";
-  };
-
-  (function() {
-    var d = document, s = d.createElement('script');
-    s.src = "https://{{ $short }}.disqus.com/embed.js";
-    s.setAttribute('data-timestamp', +new Date());
-    s.onerror = function(e){
-      console.error("[DISQUS DEBUG] embed.js 加载失败：", e);
-      var hint = document.createElement('div');
-      hint.style="margin:1rem 0;padding:1rem;border:1px solid #f99;background:#fff4f4;font:14px/1.5 system-ui";
-      hint.textContent="Disqus 脚本加载失败。可能的原因：shortname 错、被拦截、未加入 Trusted Domains、或网络问题。";
-      document.getElementById('disqus_thread').appendChild(hint);
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://prublu.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
     (d.head || d.body).appendChild(s);
-  })();
-
-  // 10 秒还没出现，就给一个提示
-  setTimeout(function(){
-    if(!document.querySelector("#disqus_thread iframe")){
-      console.warn("[DISQUS DEBUG] 10s 后仍未渲染出 iframe，可能被 CSP/广告拦截器拦截。");
-    }
-  }, 10000);
+    })();
 </script>
-<noscript>请启用 JavaScript 以查看评论。</noscript>
-{{- else -}}
-<!-- DEBUG: 未渲染 Disqus，因为在本地环境或没有 shortname -->
-{{- end -}}
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>    
