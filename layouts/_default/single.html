@@ -56,22 +56,13 @@
     {{- partial "share_icons.html" . -}}
     {{- end }}
     <span id="busuanzi_container_page_pv">
-      <span id="busuanzi_value_page_pv"> views</span>
+      <span id="busuanzi_value_page_pv"></span> views
     </span>
 
-    <!-- （可选）全站 PV/UV -->
-    <span id="busuanzi_container_site_pv">
-      <span id="busuanzi_value_site_pv">total views </span>
-    </span>
-    <span id="busuanzi_container_site_uv">
-      <span id="busuanzi_value_site_uv"> guests</span>
-    </span>
-  </footer>
 
   {{- if (.Param "comments") }}
   {{- partial "comments.html" . }}
   {{- end }}
-  {{ partial "views.html" . }}
 </article>
 
 {{- end }}{{/* end main */}}
