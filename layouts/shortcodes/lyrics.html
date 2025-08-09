@@ -11,8 +11,8 @@
   {{ $map = merge $map (dict $v.lang_code (dict "language" $v.language "lines" $v.lyrics)) }}
 {{ end }}
 
-{{ $fi := index $map "fi" }}
-{{ $en := index $map "en" }}
+{{ $fi := index $map "slangi fi" }}
+{{ $en := index $map "fi" }}
 {{ $zh := index $map "zh" }}
 
 {{ $fiLines := cond $fi ($fi.lines) (slice) }}
