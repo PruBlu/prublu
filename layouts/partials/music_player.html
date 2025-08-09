@@ -1,57 +1,100 @@
-
-{{- $url := "" -}}
-{{- $height := 0 -}}
-
+{{- $musicURL := "" -}}{{- $musicH := 0 -}}
 {{- with .Params.music -}}
   {{- $m := . -}}
   {{- if reflect.IsMap $m -}}
-    {{- $url = index $m "url" -}}
-    {{- with index $m "height" }}{{ $height = . }}{{ end -}}
-  {{- else -}} 
-    {{- $url = $m -}}
+    {{- $musicURL = index $m "url" -}}
+    {{- with index $m "height" }}{{ $musicH = . }}{{ end -}}
+  {{- else -}}
+    {{- $musicURL = $m -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $ytURL := "" -}}{{- $ytH := 0 -}}{{- $ytStart := 0 -}}
+{{- with .Params.youtube -}}
+  {{- $y := . -}}
+  {{- if reflect.IsMap $y -}}
+    {{- $ytURL = index $y "url" -}}
+    {{- with index $y "height" }}{{ $ytH = . }}{{ end -}}
+    {{- with index $y "start" }}{{ $ytStart = . }}{{ end -}}
+  {{- else -}}
+    {{- $ytURL = $y -}}
   {{- end -}}
 {{- end -}}
 
 
-{{- if $url -}}
-  {{- $src := "" -}}
-  {{- $h := 0 -}}
-
-  {{- if or (in $url "open.spotify.com/track/") (in $url "open.spotify.com/album/") (in $url "open.spotify.com/playlist/") -}}
-    {{- $clean := replaceRE `open\.spotify\.com/(?:intl-[a-z-]+/)?` `open.spotify.com/` $url -}}
-    {{- $src = replaceRE `^https?://open\.spotify\.com/` `https://open.spotify.com/embed/` $clean -}}
-    {{- if in $src "/embed/track/" -}}
-      {{- $h = 152 -}}
-    {{- else -}}
-      {{- $h = 352 -}}
-    {{- end -}}
+{{- $musicSrc := "" -}}{{- $musicAutoH := 0 -}}
+{{- if $musicURL -}}
+  {{- /* Spotify */ -}}
+  {{- if or (in $musicURL "open.spotify.com/track/") (in $musicURL "open.spotify.com/album/") (in $musicURL "open.spotify.com/playlist/") -}}
+    {{- $clean := replaceRE `open\.spotify\.com/(?:intl-[a-z-]+/)?` `open.spotify.com/` $musicURL -}}
+    {{- $musicSrc = replaceRE `^https?://open\.spotify\.com/` `https://open.spotify.com/embed/` $clean -}}
+    {{- if in $musicSrc "/embed/track/" -}}{{- $musicAutoH = 152 -}}{{- else -}}{{- $musicAutoH = 352 -}}{{- end -}}
   {{- end -}}
-
-  {{- if or (in $url "music.163.com/#/song") (in $url "music.163.com/#/playlist") (in $url "music.163.com/#/album") (in $url "y.music.163.com/m/") -}}
-    {{- $id := replaceRE `.*id=(\d+).*` `$1` $url -}}
+  
+  {{- if or (in $musicURL "music.163.com/#/song") (in $musicURL "music.163.com/#/playlist") (in $musicURL "music.163.com/#/album") (in $musicURL "y.music.163.com/m/") -}}
+    {{- $id := replaceRE `.*id=(\d+).*` `$1` $musicURL -}}
     {{- $t := 2 -}} {{/* 2=music, 0=playlist, 1=album */}}
-    {{- if in $url "/playlist" -}}{{- $t = 0 -}}{{- end -}}
-    {{- if in $url "/album" -}}{{- $t = 1 -}}{{- end -}}
-    {{- $src = printf "https://music.163.com/outchain/player?type=%d&id=%s&auto=0&height=%d" $t $id (cond (gt $height 0) $height (cond (eq $t 2) 66 450)) -}}
-    {{- $h = cond (gt $height 0) $height (cond (eq $t 2) 86 480) -}}
+    {{- if in $musicURL "/playlist" -}}{{- $t = 0 -}}{{- end -}}
+    {{- if in $musicURL "/album" -}}{{- $t = 1 -}}{{- end -}}
+    {{- $musicSrc = printf "https://music.163.com/outchain/player?type=%d&id=%s&auto=0&height=%d" $t $id (cond (gt $musicH 0) $musicH (cond (eq $t 2) 66 450)) -}}
+    {{- $musicAutoH = cond (gt $musicH 0) $musicH (cond (eq $t 2) 86 480) -}}
   {{- end -}}
+{{- end -}}
 
-  {{- if $src -}}
-    <div class="music-embed">
-      <iframe
-        style="border:0; width:100%; height:{{ $height | default $h }}px; border-radius:12px"
-        loading="lazy"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        allowfullscreen
-        src="{{ $src }}">
-      </iframe>
-    </div>
-    <style>
-      .music-embed{margin:0 0 1rem;overflow:hidden}
-      @media (prefers-color-scheme: dark){
-        .music-embed iframe{background:#181818}
-      }
-    </style>
-  {{- else -}}
+{{- $ytSrc := "" -}}{{- $ytAutoH := 0 -}}
+{{- if $ytURL -}}
+  {{- /* 支持 youtu.be/ID, youtube.com/watch?v=ID, /shorts/ID, /embed/ID */ -}}
+  {{- $id := replaceRE `.*(?:youtu\.be/|youtube\.com/(?:watch\?v=|shorts/|embed/))([A-Za-z0-9_-]{11}).*` `$1` $ytURL -}}
+  {{- if $id -}}
+    {{- $qs := slice "rel=0" -}}
+    {{- if gt $ytStart 0 -}}
+      {{- $qs = $qs | append (printf "start=%d" $ytStart) -}}
+    {{- end -}}
+    {{- $ytSrc = printf "https://www.youtube-nocookie.com/embed/%s?%s" $id (delimit $qs "&") -}}
+    {{- $ytAutoH = cond (gt $ytH 0) $ytH 315 -}} 
   {{- end -}}
+{{- end -}}
+
+{{- if or $musicSrc $ytSrc -}}
+  <div class="players">
+    {{- if $musicSrc -}}
+      <div class="player-block">
+        <iframe
+          style="border:0; width:100%; height:{{ $musicH | default $musicAutoH }}px; border-radius:12px"
+          loading="lazy"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture; accelerometer; gyroscope"
+          allowfullscreen
+          src="{{ $musicSrc }}">
+        </iframe>
+        <div class="music-actions">
+          <a class="music-open" href="{{ $musicURL }}" target="_blank" rel="noopener">Open with browser</a>
+        </div>
+      </div>
+    {{- end -}}
+
+    {{- if $ytSrc -}}
+      <div class="player-block">
+        <iframe
+          style="border:0; width:100%; height:{{ $ytH | default $ytAutoH }}px; border-radius:12px"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+          allowfullscreen
+          src="{{ $ytSrc }}">
+        </iframe>
+        <div class="music-actions">
+          <a class="music-open" href="{{ $ytURL }}" target="_blank" rel="noopener">Open with browser</a>
+        </div>
+      </div>
+    {{- end -}}
+  </div>
+
+  <style>
+    .players{margin:0 0 1rem;display:grid;gap:1rem}
+    .player-block{}
+    .music-actions{margin:.5rem 0 1rem}
+    .music-open{display:inline-block;padding:.4rem .7rem;border:1px solid #ddd;border-radius:8px;text-decoration:none}
+    @media (prefers-color-scheme: dark){
+      .music-open{border-color:#333}
+    }
+  </style>
 {{- end -}}
