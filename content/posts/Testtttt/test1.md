@@ -2,7 +2,7 @@
 title = 'Test'
 date = 2025-08-07
 draft = false
-comments: true
+comments = true
 +++
 ## Introduction
 
