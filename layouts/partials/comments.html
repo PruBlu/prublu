@@ -3,7 +3,7 @@
 {{- /* Comments area end */ -}}
 
 {{- $short := .Site.Config.Services.Disqus.Shortname -}}
-{{- if and (not .Site.IsServer) $short -}}
+{{- if and (not hugo.IsServer) $short -}}
 <div id="disqus_thread"></div>
 
 <!-- DEBUG: 以下信息只用于排查，出问题时在控制台里能看到 -->
