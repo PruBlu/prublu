@@ -5,6 +5,10 @@ title: PruBlu
 pagerSize: 5
 theme: ["PaperMod"]
 
+services:
+  disqus:
+    shortname: prublu
+
 enableRobotsTXT: true
 buildDrafts: false
 buildFuture: false
@@ -152,6 +156,3 @@ outputs:
     - HTML
     - RSS
     - JSON # necessary for search
-services:
-  disqus:
-    shortname: PruBlu
