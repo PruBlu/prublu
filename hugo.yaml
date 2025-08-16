@@ -160,7 +160,7 @@ outputs:
     - JSON # necessary for search
 
 defaultContentLanguage: en
-defaultContentLanguageInSubdir: false
+defaultContentLanguageInSubdir: true
 canonifyURLs: true 
 
 languages:
