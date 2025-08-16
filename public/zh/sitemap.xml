@@ -2,67 +2,67 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/zh/posts/</loc>
+    <loc>https://prublu.github.io/prublu/zh/posts/</loc>
     <lastmod>2025-08-16T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/posts/"
+                href="https://prublu.github.io/prublu/en/posts/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="http://localhost:1313/zh/posts/"
+                href="https://prublu.github.io/prublu/zh/posts/"
                 />
   </url><url>
-    <loc>http://localhost:1313/zh/posts/testtttt/test1/</loc>
+    <loc>https://prublu.github.io/prublu/zh/posts/testtttt/test1/</loc>
     <lastmod>2025-08-16T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/posts/testtttt/test1/"
+                href="https://prublu.github.io/prublu/en/posts/testtttt/test1/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="http://localhost:1313/zh/posts/testtttt/test1/"
+                href="https://prublu.github.io/prublu/zh/posts/testtttt/test1/"
                 />
   </url><url>
-    <loc>http://localhost:1313/zh/</loc>
+    <loc>https://prublu.github.io/prublu/zh/</loc>
     <lastmod>2025-08-16T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/"
+                href="https://prublu.github.io/prublu/en/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="http://localhost:1313/zh/"
+                href="https://prublu.github.io/prublu/zh/"
                 />
   </url><url>
-    <loc>http://localhost:1313/zh/categories/</loc>
+    <loc>https://prublu.github.io/prublu/zh/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/categories/"
+                href="https://prublu.github.io/prublu/en/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="http://localhost:1313/zh/categories/"
+                href="https://prublu.github.io/prublu/zh/categories/"
                 />
   </url><url>
-    <loc>http://localhost:1313/zh/tags/</loc>
+    <loc>https://prublu.github.io/prublu/zh/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/tags/"
+                href="https://prublu.github.io/prublu/en/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="http://localhost:1313/zh/tags/"
+                href="https://prublu.github.io/prublu/zh/tags/"
                 />
   </url>
 </urlset>

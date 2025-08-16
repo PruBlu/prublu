@@ -1,4 +1,4 @@
-baseURL: "https://prublu.github.io"
+baseURL: "https://prublu.github.io/prublu/"
 title: PruBlu
 pagerSize: 5
 theme: ["PaperMod"]
@@ -162,7 +162,7 @@ outputs:
 defaultContentLanguage: en
 defaultContentLanguageInSubdir: true
 canonifyURLs: true 
-relativeURLs: true
+relativeURLs: false
 
 languages:
   en:
