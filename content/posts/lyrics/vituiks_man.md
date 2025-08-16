@@ -1,6 +1,7 @@
 +++
 title = "LyricsTranslate: Viktuis Män"
 date = 2025-08-09
+tags = ["lyrics"]
 draft = false
 comments = true
 music = "https://music.163.com/#/song?id=2009821260"

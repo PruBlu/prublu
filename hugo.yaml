@@ -1,5 +1,3 @@
-# 还没改
-
 baseURL: "https://prublu.github.io/prublu/"
 title: PruBlu
 pagerSize: 5
@@ -27,7 +25,7 @@ params:
   title: ExampleSite
   description: "ExampleSite description"
   keywords: [Blog, Portfolio, PaperMod]
-  author: Me
+  author: PruBlu
   # author: ["Me", "You"] # multiple authors
   images: ["<link or path of image for opengraph, twitter-cards>"]
   DateFormat: "January 2, 2006"
@@ -123,22 +121,26 @@ params:
     keys: ["title", "permalink", "summary", "content"]
 menu:
   main:
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 10
     - identifier: archive
       name: Archive
       url: /archive/
       weight: 10
-    - identifier: Tags
+    - identifier: tags
       name: Tags
       url: /tags/
       weight: 20
-    - identifier: Search
+    - identifier: search
       name: Search
       url: /search/
       weight: 10
-    - identifier: example
-      name: example.org
-      url: https://example.org
-      weight: 30
+    # - identifier: example
+    #   name: example.org
+    #   url: https://example.org
+    #   weight: 30
 
 # Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
 pygmentsUseClasses: true
@@ -156,3 +158,36 @@ outputs:
     - HTML
     - RSS
     - JSON # necessary for search
+
+defaultContentLanguage: en
+defaultContentLanguageInSubdir: false
+canonifyURLs: true 
+
+languages:
+  en:
+    languageName: "English"
+    weight: 1
+    title: "PruBlu's World!"
+    menu:
+      main:
+        - name: Home
+          url: /
+          weight: 1
+        - name: Lyrics
+          url: /lyrics/
+          weight: 2
+
+  zh:
+    languageName: "中文"
+    weight: 2
+    title: "华蓝的世界！"
+    params:
+      description: "测试"
+    menu:
+      main:
+        - name: 首页
+          url: /
+          weight: 1
+        - name: 歌词
+          url: /lyrics/
+          weight: 2

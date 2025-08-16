@@ -1,6 +1,7 @@
 +++
 title = "LyricsTranslate: Maalliset Valmiudet"
 date = 2025-08-16
+tags = ["lyrics"]
 draft = false
 comments = true
 music = "https://music.163.com/#/song?id=531857673"
