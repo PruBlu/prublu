@@ -161,8 +161,6 @@ outputs:
 
 defaultContentLanguage: en
 defaultContentLanguageInSubdir: true
-canonifyURLs: true 
-relativeURLs: false
 
 languages:
   en:
@@ -182,8 +180,6 @@ languages:
     languageName: "中文"
     weight: 2
     title: "华蓝的世界！"
-    params:
-      description: "测试"
     menu:
       main:
         - name: 首页
