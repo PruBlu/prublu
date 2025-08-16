@@ -1,0 +1,103 @@
+{{- define "main" -}}
+
+<article class="book-article">
+  {{- with .Params.cover }}
+    {{ $path := .image }}
+    {{ $alt := .alt | default $.Title }}
+    <figure class="book-cover">
+      <img src="{{ $path | relURL }}" alt="{{ $alt }}">
+    </figure>
+  {{- end }}
+
+
+  <header class="book-header">
+    <h1 class="book-title">{{ .Title }}</h1>
+    {{ with .Params.subtitle }}<p class="book-subtitle">{{ . }}</p>{{ end }}
+  </header>
+
+  {{ $intro := or .Params.intro .Description }}
+  {{ with $intro }}
+    <section class="book-intro">
+      {{ . | markdownify }}
+    </section>
+  {{ end }}
+
+  <section class="book-content">
+    {{ .Content }}
+  </section>
+
+  {{ with .Page.Scratch.Get "notes" }}
+    <section class="book-notes" id="notes">
+      <h3>Notes</h3>
+      <ol>
+        {{ range . }}
+          <li id="note-{{ .id }}">
+            {{ .html | safeHTML }}
+            <a class="backref" href="#ref-{{ .id }}" aria-label="Back to reference">↩</a>
+          </li>
+        {{ end }}
+      </ol>
+    </section>
+  {{ end }}
+
+  <nav class="book-nav">
+    {{ with .PrevInSection }}<a class="prev" href="{{ .RelPermalink }}">← {{ .Title }}</a>{{ end }}
+    {{ with .NextInSection }}<a class="next" href="{{ .RelPermalink }}">{{ .Title }} →</a>{{ end }}
+  </nav>
+</article>
+
+<style>
+.book-article{max-width:860px;margin:0 auto;padding:1.25rem}
+.book-title{margin:.2rem 0 .4rem;line-height:1.25}
+.book-subtitle{opacity:.75;margin:0 0 1rem}
+.book-intro{background:var(--intro-bg,rgba(0,0,0,.03));padding:1rem 1.1rem;border-radius:12px;border:1px solid rgba(0,0,0,.06);margin:.5rem 0 1.25rem}
+.book-content p{margin:1rem 0;line-height:1.8}
+
+.book-fig{margin:1rem 0;text-align:center}
+.book-fig img{max-width:100%;height:auto;border-radius:10px}
+.book-fig figcaption{font-size:.95em;opacity:.8;margin-top:.4rem}
+.book-fig.left{float:left;margin: .3rem 1rem .6rem 0;max-width:50%}
+.book-fig.right{float:right;margin: .3rem 0 .6rem 1rem;max-width:50%}
+.book-fig.center{margin-left:auto;margin-right:auto;clear:both}
+
+.note-ref{position:relative;text-decoration:underline dotted;cursor:help}
+.note-ref:hover::after {
+  content: attr(data-note);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 1.8em;
+
+  display: block;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+
+  font-size: 0.9em;
+  line-height: 1.5;
+  text-align: left;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  max-width: 420px;
+  z-index: 1000;
+}
+
+.book-notes{clear:both;margin-top:2rem;padding:1rem 1.1rem;border-left:3px solid #ccc}
+.book-notes h3{margin:.2rem 0 .6rem}
+.book-notes ol{margin:0;padding-left:1.2rem}
+.book-notes .backref{margin-left:.4rem;text-decoration:none;opacity:.7}
+.book-notes .backref:hover{opacity:1}
+.book-nav{display:flex;justify-content:space-between;gap:1rem;margin:2rem 0 0}
+.book-nav a{padding:.5rem .75rem;border:1px solid rgba(0,0,0,.12);border-radius:8px;text-decoration:none}
+@media (prefers-color-scheme: dark){
+  .book-intro{--intro-bg:rgba(255,255,255,.03);border-color:rgba(255,255,255,.08)}
+  .book-notes{border-color:#555}
+  .book-nav a{border-color:rgba(255,255,255,.18)}
+}
+</style>
+
+{{- end -}}

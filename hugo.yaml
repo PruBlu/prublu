@@ -21,6 +21,7 @@ minify:
   minifyOutput: true
 
 params:
+  mainSections: ["posts", "lyrics", "books"]
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
   title: ExampleSite
   description: "ExampleSite description"
@@ -102,6 +103,7 @@ params:
     hidden: true # hide everywhere but not in structured data
     hiddenInList: true # hide on list pages and home
     hiddenInSingle: true # hide on single page
+    responsiveImages : false
 
   editPost:
     URL: "https://github.com/<path_to_repo>/content"
@@ -119,24 +121,7 @@ params:
     minMatchCharLength: 0
     limit: 10 # refer: https://www.fusejs.io/api/methods.html#search
     keys: ["title", "permalink", "summary", "content"]
-menu:
-  main:
-    - identifier: about
-      name: About
-      url: /about/
-      weight: 10
-    - identifier: archive
-      name: Archive
-      url: /archive/
-      weight: 10
-    - identifier: tags
-      name: Tags
-      url: /tags/
-      weight: 20
-    - identifier: search
-      name: Search
-      url: /search/
-      weight: 10
+
     # - identifier: example
     #   name: example.org
     #   url: https://example.org
@@ -169,12 +154,22 @@ languages:
     title: "PruBlu's World!"
     menu:
       main:
-        - name: Home
-          url: /
+        - identifier: about
+          name: About
+          url: about/
           weight: 1
-        - name: Lyrics
-          url: /lyrics/
+        - identifier: archive
+          name: Archive
+          url: archive/
           weight: 2
+        - identifier: tags
+          name: Tags
+          url: tags/
+          weight: 3
+        - identifier: search
+          name: Search
+          url: search/
+          weight: 4
 
   zh:
     languageName: "中文"
@@ -182,9 +177,19 @@ languages:
     title: "华蓝的世界！"
     menu:
       main:
-        - name: 首页
-          url: /
+        - identifier: about
+          name: 关于
+          url: about/
           weight: 1
-        - name: 歌词
-          url: /lyrics/
+        - identifier: archive
+          name: 时间线
+          url: archive/
           weight: 2
+        - identifier: tags
+          name: 分类
+          url: tags/
+          weight: 3
+        - identifier: search
+          name: 搜索🔍
+          url: search/
+          weight: 4

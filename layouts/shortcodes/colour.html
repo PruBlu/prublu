@@ -1,0 +1,7 @@
+{{/* Usage:
+  {{< color "#d97706" >}}Orange text{{< /color >}}
+  Or: {{< color color="tomato" >}}Name your color{{< /color >}}
+*/}}
+
+{{- $c := .Get 0 | default (.Get "color") | default "inherit" -}}
+<span style="color: {{ $c }};">{{ .Inner | markdownify }}</span>
