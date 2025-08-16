@@ -162,6 +162,7 @@ outputs:
 defaultContentLanguage: en
 defaultContentLanguageInSubdir: true
 canonifyURLs: true 
+relativeURLs: true
 
 languages:
   en:
