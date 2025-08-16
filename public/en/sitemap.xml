@@ -2,84 +2,84 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/prublu/en/about/</loc>
+    <loc>http://localhost:1313/en/about/</loc>
     <lastmod>2025-08-16T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/prublu/en/tags/lyrics/</loc>
+    <loc>http://localhost:1313/en/tags/lyrics/</loc>
     <lastmod>2025-08-16T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/prublu/en/posts/lyrics/maalliset-valmiudet/</loc>
+    <loc>http://localhost:1313/en/posts/lyrics/maalliset-valmiudet/</loc>
     <lastmod>2025-08-16T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/prublu/en/posts/</loc>
-    <lastmod>2025-08-16T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="http://localhost:1313/prublu/zh/posts/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://localhost:1313/prublu/en/posts/"
-                />
-  </url><url>
-    <loc>http://localhost:1313/prublu/en/</loc>
+    <loc>http://localhost:1313/en/posts/</loc>
     <lastmod>2025-08-16T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="http://localhost:1313/prublu/zh/"
+                href="http://localhost:1313/zh/posts/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/prublu/en/"
+                href="http://localhost:1313/en/posts/"
                 />
   </url><url>
-    <loc>http://localhost:1313/prublu/en/tags/</loc>
+    <loc>http://localhost:1313/en/</loc>
     <lastmod>2025-08-16T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="http://localhost:1313/prublu/zh/tags/"
+                href="http://localhost:1313/zh/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/prublu/en/tags/"
+                href="http://localhost:1313/en/"
                 />
   </url><url>
-    <loc>http://localhost:1313/prublu/en/posts/lyrics/vituiks_man/</loc>
+    <loc>http://localhost:1313/en/tags/</loc>
+    <lastmod>2025-08-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://localhost:1313/zh/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://localhost:1313/en/tags/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/en/posts/lyrics/vituiks_man/</loc>
     <lastmod>2025-08-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/prublu/en/posts/testtttt/test1/</loc>
+    <loc>http://localhost:1313/en/posts/testtttt/test1/</loc>
     <lastmod>2025-08-07T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="http://localhost:1313/prublu/zh/posts/testtttt/test1/"
+                href="http://localhost:1313/zh/posts/testtttt/test1/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/prublu/en/posts/testtttt/test1/"
+                href="http://localhost:1313/en/posts/testtttt/test1/"
                 />
   </url><url>
-    <loc>http://localhost:1313/prublu/en/archive/</loc>
+    <loc>http://localhost:1313/en/archive/</loc>
   </url><url>
-    <loc>http://localhost:1313/prublu/en/categories/</loc>
+    <loc>http://localhost:1313/en/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="http://localhost:1313/prublu/zh/categories/"
+                href="http://localhost:1313/zh/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/prublu/en/categories/"
+                href="http://localhost:1313/en/categories/"
                 />
   </url><url>
-    <loc>http://localhost:1313/prublu/en/search/</loc>
+    <loc>http://localhost:1313/en/search/</loc>
   </url>
 </urlset>
