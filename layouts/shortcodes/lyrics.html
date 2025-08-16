@@ -6,6 +6,7 @@
   <p style="color:#b91c1c">Data unfound: data/lyrics/{{ $id }}.yml</p>
 {{ else }}
 
+{{/* 列顺序 & 映射：code -> []lines */}}
 {{ $cols := slice }}
 {{ $linesMap := dict }}
 {{ range $v := $song.language_versions }}
@@ -13,13 +14,14 @@
   {{ $linesMap = merge $linesMap (dict $v.lang_code $v.lyrics) }}
 {{ end }}
 
+{{/* 最大行数 */}}
 {{ $max := 0 }}
 {{ range $code := $cols }}
   {{ $l := index $linesMap $code | default (slice) }}
   {{ if gt (len $l) $max }}{{ $max = len $l }}{{ end }}
 {{ end }}
 
-<div class="tri-lyrics">
+<div class="tri-lyrics" id="top">
   <h2 class="tri-title">{{ $song.title }}</h2>
   <p class="tri-meta"><strong>{{ $song.artist }}</strong> — {{ $song.album }}</p>
 
@@ -27,9 +29,7 @@
     <table class="tri-table">
       <thead>
         <tr>
-          {{ range $code := $cols }}
-            <th>{{ $code }}</th>
-          {{ end }}
+          {{ range $code := $cols }}<th>{{ $code }}</th>{{ end }}
         </tr>
       </thead>
       <tbody>
@@ -37,16 +37,37 @@
           <tr>
             {{ range $code := $cols }}
               {{ $arr := index $linesMap $code | default (slice) }}
-              <td><span class="line">{{ with index $arr $i }}{{ . }}{{ end }}</span></td>
+              {{ $line := cond (lt $i (len $arr)) (index $arr $i) "" }}
+
+              {{/* 把 [数字] 变成链接到 #note-数字；避免影响 [?] */}}
+              {{ $linked := cond (ne $line "") (replaceRE `\[(\d+)\]` `<a class="fn" href="#note-$1">[$1]</a>` $line) "" }}
+
+              <td><span class="line">{{ $linked | safeHTML }}</span></td>
             {{ end }}
           </tr>
         {{ end }}
       </tbody>
     </table>
   </div>
+
+  {{ with $song.notes }}
+  <div class="tri-notes">
+    <h3>Notes</h3>
+    <ol>
+      {{ range . }}
+        <li id="note-{{ .id }}">
+          <span class="note-num">[{{ .id }}]</span>
+          {{ .text }}
+          <a class="backref" href="#top" aria-label="Back to top">↩︎</a>
+        </li>
+      {{ end }}
+    </ol>
+  </div>
+  {{ end }}
 </div>
 
 <style>
+/* —— 外观（与之前一致） —— */
 .tri-table-wrap{overflow:auto;border-radius:.5rem}
 .tri-table{width:100%;border-collapse:separate;border-spacing:0}
 .tri-table th,.tri-table td{border:0;padding:.6rem .8rem;vertical-align:top;line-height:1.6}
@@ -55,8 +76,20 @@
 .tri-table tbody td:hover{background:var(--tri-active,rgba(255,224,130,.6))}
 .tri-title{margin:.2rem 0 .3rem}
 .tri-meta{margin:0 0 .6rem;opacity:.8}
+
+/* —— 脚注样式 —— */
+.fn{ text-decoration: underline; font-size:.95em }
+.tri-notes{margin-top:1.5rem;padding:.8rem 1rem;border-left:3px solid #ccc;font-size:.95em;line-height:1.5}
+.tri-notes h3{margin:.2rem 0 .6rem;font-size:1.1em;font-weight:600}
+.tri-notes ol{margin:0;padding-left:1.4rem}
+.tri-notes li{margin:.4rem 0}
+.tri-notes .note-num{font-weight:600;margin-right:.25rem}
+.tri-notes .backref{margin-left:.4rem;text-decoration:none;opacity:.7}
+.tri-notes .backref:hover{opacity:1}
+
 @media (prefers-color-scheme: dark){
-  :root{ --tri-bg:#0b0b0b; --tri-hover:rgba(255,255,255,.08); --tri-active:rgba(255,255,255,.14); }
+  :root{ --tri-bg:#0b0b0b; --tri-hover:rgba(255,255,255,.08); --tri-active:rgba(255,255,255,.14) }
+  .tri-notes{border-color:#555}
 }
 </style>
 {{ end }}
